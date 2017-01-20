@@ -124,10 +124,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 7375fc0928027c9b877d4059bc4ffeed224ed967
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 ###-begin-ng-completion###
