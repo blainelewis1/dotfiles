@@ -1,3 +1,6 @@
+
+eval "$(register-python-argcomplete conda)"
+
 ###-begin-ng-completion###
 #
 # ng command completion script
