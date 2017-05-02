@@ -1,5 +1,5 @@
 # some more ls aliases
-alias ls='ls -hGF'
+alias ls='ls -ahGF'
 alias ll='ls -al'
 alias la='ll -A'
 alias l='ls -CF'
