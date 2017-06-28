@@ -1,0 +1,5 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+	name = Blaine Lewis
+	email = blaine.lewis.1@outlook.com
