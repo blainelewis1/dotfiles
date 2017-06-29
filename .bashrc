@@ -8,6 +8,8 @@ case $- in
       *) return;;
 esac
 
+set -o noclobber
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -118,6 +120,9 @@ if [ -f ~/.bash_machine ]; then
     . ~/.bash_machine
 fi
 
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -129,6 +134,10 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# gulp completion
+
+eval "$(gulp --completion=bash)"
 
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
