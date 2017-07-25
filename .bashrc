@@ -21,7 +21,6 @@ shopt -s histappend
 HISTCONTROL=ignoredups:erasedups  # no duplicate entries
 HISTSIZE=100000                   # big big history
 HISTFILESIZE=100000               # big big history
-shopt -s histappend                      # append to history, don't overwrite it
 
 # Save and reload the history after each command finishes
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
@@ -30,6 +29,18 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
+
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob;
+
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell;
+
+# Recursive cd, ie cd **/test ./one/two/test
+shopt -s autocd;
+
+# Recursive globbing **/*.txt
+shopt -s globstar;
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
@@ -83,14 +94,13 @@ esac
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
 fi
+
+alias ls='ls --color=auto'
+
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
@@ -141,89 +151,50 @@ eval "$(gulp --completion=bash)"
 
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
 ###-begin-ng-completion###
 #
+
 # ng command completion script
+#   This command supports 3 cases.
+#   1. (Default case) It prints a common completion initialisation for both Bash and Zsh.
+#      It is the result of either calling "ng completion" or "ng completion -a".
+#   2. Produce Bash-only completion: "ng completion -b" or "ng completion --bash".
+#   3. Produce Zsh-only completion: "ng completion -z" or "ng completion --zsh".
 #
-# Installation: ng completion 1>> ~/.bashrc 2>>&1
-#           or  ng completion 1>> ~/.zshrc 2>>&1
+# Usage: . <(ng completion --bash) # place it appropriately in .bashrc or
+#        . <(ng completion --zsh) # find a spot for it in .zshrc
 #
+_ng_completion() {
+  local cword pword opts
 
-ng_opts='b build completion doc e2e g generate get github-pages:deploy gh-pages:deploy h help i init install lint make-this-awesome new s serve server set t test v version -h --help'
+  COMPREPLY=()
+  cword=${COMP_WORDS[COMP_CWORD]}
+  pword=${COMP_WORDS[COMP_CWORD - 1]}
 
-build_opts='--aot --base-href --environment --output-path --suppress-sizes --target --watch --watcher -bh -dev -e -o -prod -t -w'
-generate_opts='class component directive enum module pipe route service c cl d e m p r s --help'
-github_pages_deploy_opts='--base-href --environment --gh-token --gh-username --message --skip-build --target --user-page -bh -e -t'
-help_opts='--json --verbose -v'
-init_opts='--dry-run inline-style inline-template --link-cli --mobile --name --prefix --routing --skip-bower --skip-npm --source-dir --style --verbose -d -is -it -lc -n -p -sb -sd -sn -v'
-new_opts='--directory --dry-run inline-style inline-template --link-cli --mobile --prefix --routing --skip-bower --skip-git --skip-npm --source-dir --style --verbose -d -dir -is -it -lc -p -sb -sd -sg -sn -v'
-serve_opts='--aot --environment --host --live-reload --live-reload-base-url --live-reload-host --live-reload-live-css --live-reload-port --open --port --proxy-config --ssl --ssl-cert --ssl-key --target --watcher -H -e -lr -lrbu -lrh -lrp -o -p -pc -t -w'
-set_opts='--global -g'
-test_opts='--browsers --build --code-coverage --colors --lint --log-level --port --reporters --watch -cc -l -w'
+  case ${pword} in
+    ng|help) opts="--version -v b build completion doc e e2e eject g generate get help l lint n new s serve server set t test v version xi18n" ;;
+    b|build) opts="--aot --app --base-href --delete-output-path --deploy-url --environment --extract-css --extract-licenses --i18n-file --i18n-format --locale --output-hashing --output-path --poll --preserve-symlinks --progress --sourcemaps --stats-json --target --vendor-chunk --verbose --watch -a -aot -bh -d -dop -e -ec -extractLicenses -i18nFile -i18nFormat -locale -oh -op -poll -pr -preserveSymlinks -sm -statsJson -t -v -vc -w" ;;
+    completion) opts="--all --bash --zsh -a -b -z" ;;
+    doc) opts="--search -s" ;;
+    e|e2e) opts="--aot --app --base-href --config --delete-output-path --deploy-url --disable-host-check --element-explorer --environment --extract-css --extract-licenses --hmr --host --i18n-file --i18n-format --live-reload --locale --open --output-hashing --output-path --poll --port --preserve-symlinks --progress --proxy-config --public-host --serve --sourcemaps --specs --ssl --ssl-cert --ssl-key --target --vendor-chunk --verbose --watch --webdriver-update -H -a -aot -bh -c -d -disableHostCheck -dop -e -ec -ee -extractLicenses -hmr -i18nFile -i18nFormat -live-reload-client -locale -lr -o -oh -op -p -pc -poll -pr -preserveSymlinks -s -sm -sp -ssl -sslCert -sslKey -t -v -vc -w -wu" ;;
+    eject) opts="--aot --app --base-href --delete-output-path --deploy-url --environment --extract-css --extract-licenses --force --i18n-file --i18n-format --locale --output-hashing --output-path --poll --preserve-symlinks --progress --sourcemaps --target --vendor-chunk --verbose --watch -a -aot -bh -d -dop -e -ec -extractLicenses -force -i18nFile -i18nFormat -locale -oh -op -poll -pr -preserveSymlinks -sm -t -v -vc -w" ;;
+    g|generate) opts="--dry-run --lint-fix --verbose -d -lf -v" ;;
+    get) opts="--global -global" ;;
+    l|lint) opts="--fix --force --format --type-check -fix -force -format -typeCheck" ;;
+    n|new) opts="--directory --dry-run --inline-style --inline-template --link-cli --minimal --prefix --routing --skip-commit --skip-git --skip-install --skip-tests --source-dir --style --verbose -d -dir -is -it -lc -minimal -p -routing -sc -sd -sg -si -st -style -v" ;;
+    s|serve|server) opts="--aot --app --base-href --delete-output-path --deploy-url --disable-host-check --environment --extract-css --extract-licenses --hmr --host --i18n-file --i18n-format --live-reload --locale --open --output-hashing --output-path --poll --port --preserve-symlinks --progress --proxy-config --public-host --sourcemaps --ssl --ssl-cert --ssl-key --target --vendor-chunk --verbose --watch -H -a -aot -bh -d -disableHostCheck -dop -e -ec -extractLicenses -hmr -i18nFile -i18nFormat -live-reload-client -locale -lr -o -oh -op -p -pc -poll -pr -preserveSymlinks -sm -ssl -sslCert -sslKey -t -v -vc -w" ;;
+    set) opts="--global -g" ;;
+    t|test) opts="--app --browsers --code-coverage --colors --config --log-level --poll --port --progress --reporters --single-run --sourcemaps --watch -a -browsers -c -cc -colors -logLevel -poll -port -progress -reporters -sm -sr -w" ;;
+    --version|-v|v|version) opts="--verbose -verbose" ;;
+    xi18n) opts="--app --i18n-format --locale --out-file --output-path --progress --verbose -a -f -l -of -op -progress -verbose" ;;
+    *) opts="" ;;
+  esac
 
-version_opts='--verbose'
+  COMPREPLY=( $(compgen -W '${opts}' -- $cword) )
 
-if test ".$(type -t complete 2>/dev/null || true)" = ".builtin"; then
-  _ng_completion() {
-    local cword pword opts
+  return 0
+}
 
-    COMPREPLY=()
-    cword=${COMP_WORDS[COMP_CWORD]}
-    pword=${COMP_WORDS[COMP_CWORD - 1]}
-
-    case ${pword} in
-      ng) opts=$ng_opts ;;
-      b|build) opts=$build_opts ;;
-      g|generate) opts=$generate_opts ;;
-      gh-pages:deploy|github-pages:deploy) opts=$github_pages_deploy_opts ;;
-      h|help|-h|--help) opts=$help_opts ;;
-      init) opts=$init_opts ;;
-      new) opts=$new_opts ;;
-      s|serve|server) opts=$serve_opts ;;
-      set) opts=$set_opts ;;
-      t|test) opts=$test_opts ;;
-      v|version) opts=$version_opts ;;
-      *) opts='' ;;
-    esac
-
-    COMPREPLY=( $(compgen -W '${opts}' -- $cword) )
-
-    return 0
-  }
-
-  complete -o default -F _ng_completion ng
-elif test ".$(type -w compctl 2>/dev/null || true)" = ".compctl: builtin" ; then
-  _ng_completion () {
-    local words cword opts
-    read -Ac words
-    read -cn cword
-    let cword-=1
-
-    case $words[cword] in
-      ng) opts=$ng_opts ;;
-      b|build) opts=$build_opts ;;
-      g|generate) opts=$generate_opts ;;
-      gh-pages:deploy|github-pages:deploy) opts=$github_pages_deploy_opts ;;
-      h|help|-h|--help) opts=$help_opts ;;
-      init) opts=$init_opts ;;
-      new) opts=$new_opts ;;
-      s|serve|server) opts=$serve_opts ;;
-      set) opts=$set_opts ;;
-      t|test) opts=$test_opts ;;
-      v|version) opts=$version_opts ;;
-      *) opts='' ;;
-    esac
-
-    setopt shwordsplit
-    reply=($opts)
-    unset shwordsplit
-  }
-
-  compctl -K _ng_completion ng
-else
-  echo "Shell builtin command 'complete' or 'compctl' is redefined; cannot perform ng completion."
-  return 1
-fi
-
+complete -o default -F _ng_completion ng
 ###-end-ng-completion###
-
