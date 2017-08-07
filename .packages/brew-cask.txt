@@ -1,0 +1,6 @@
+docker
+gimp
+google-chrome
+slack
+spotify
+visual-studio-code

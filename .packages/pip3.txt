@@ -1,0 +1,7 @@
+docker-compose (1.15.0)
+jupyter (1.0.0)
+matplotlib (2.0.2)
+pip (9.0.1)
+scipy (0.19.1)
+tensorflow (1.2.1)
+webencodings (0.5.1)
