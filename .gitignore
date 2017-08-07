@@ -1,5 +1,6 @@
 *
 !.bashrc
+!.packages/*
 !.bash_profile
 !.bash_aliases
 !.inputrc
