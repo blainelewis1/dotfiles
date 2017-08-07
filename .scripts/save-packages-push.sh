@@ -1,3 +1,5 @@
+set -x
+
 brew leaves > ~/.packages/brew.txt
 brew cask list > ~/.packages/brew-cask.txt
 pip3 list --not-required > ~/.packages/pip3.txt
