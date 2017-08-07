@@ -1,4 +1,4 @@
-angular-cli
+cli
 gulp
 http-server
 npm
