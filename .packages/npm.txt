@@ -1,0 +1,5 @@
+angular-cli
+gulp
+http-server
+npm
+rxjs
