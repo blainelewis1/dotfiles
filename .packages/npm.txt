@@ -1,5 +1,5 @@
 cli
-gulp
+cli
 http-server
 npm
 rxjs
