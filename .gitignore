@@ -1,8 +1,14 @@
 *
 !.bashrc
-!.packages/
-!.bash_profile
 !.bash_aliases
+!.bash_profile
+!.gitconfig
+!.packages/*
+!.packages
+!.scripts
+!.scripts/*
+!Library/Application\ Support/Code/User/settings.json
+!.pylintrc
 !.inputrc
 !.vimrc
 !.gitignore

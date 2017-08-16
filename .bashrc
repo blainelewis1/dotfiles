@@ -113,9 +113,6 @@ alias ll='ls -alF'
 alias la='ll -A'
 alias l='ls -CF'
 
-alias python=python3
-alias pip=pip3
-
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -133,9 +130,13 @@ if [ -f ~/.bash_machine ]; then
     . ~/.bash_machine
 fi
 
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  . $(brew --prefix)/etc/bash_completion
-fi
+# if [ -f $(brew --prefix)/etc/bash_completion ]; then
+#   . $(brew --prefix)/etc/bash_completion
+# fi
+
+if [ -f /usr/local/share/bash-completion/bash_completion ]; then
+    . /usr/local/share/bash-completion/bash_completion
+  fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -201,3 +202,13 @@ _ng_completion() {
 
 complete -o default -F _ng_completion ng
 ###-end-ng-completion###
+
+# pip3 bash completion start
+_pip3_completion()
+{
+    COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
+                   COMP_CWORD=$COMP_CWORD \
+                   PIP_AUTO_COMPLETE=1 $1 ) )
+}
+complete -o default -F _pip3_completion pip3
+# pip3 bash completion end

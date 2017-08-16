@@ -1,7 +1,12 @@
+aws-elasticbeanstalk
 awscli
-bash
-bash-completion
+bash-completion@2
 brew-cask-completion
+docker-completion
+docker-compose-completion
+git
 node
+pip-completion
 python
 python3
+wget

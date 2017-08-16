@@ -1,6 +1,11 @@
 docker
+evernote
 gimp
 google-chrome
+macpass
+mactex
 slack
+sourcetree
 spotify
+texstudio
 visual-studio-code
