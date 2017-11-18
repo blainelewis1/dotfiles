@@ -2,11 +2,16 @@ aws-elasticbeanstalk
 awscli
 bash-completion@2
 brew-cask-completion
+colordiff
 docker-completion
 docker-compose-completion
 git
+grep
+mariadb
 node
 pip-completion
 python
-python3
+r
+sl
+vagrant-completion
 wget

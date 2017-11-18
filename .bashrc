@@ -52,6 +52,10 @@ shopt -s dotglob
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+# R helps less scroll especially for git. F quits if under one screen
+
+export LESS="-R"
+
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
@@ -212,3 +216,11 @@ _pip3_completion()
 }
 complete -o default -F _pip3_completion pip3
 # pip3 bash completion end
+
+function _update_ps1() {
+    PS1="$(powerline-shell $?)"
+}
+
+if [ "$TERM" != "linux" ]; then
+    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+fi

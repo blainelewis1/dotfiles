@@ -1,5 +1,8 @@
 cli
 gulp
 http-server
+jquery
+materialize
 npm
+protractor
 rxjs
