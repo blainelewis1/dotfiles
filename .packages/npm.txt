@@ -1,8 +1,11 @@
 cli
+electron
+google-ts-style
 gulp
 http-server
 jquery
 materialize
 npm
 protractor
-rxjs
+tslint
+typescript
