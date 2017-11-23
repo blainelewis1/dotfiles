@@ -1,12 +1,12 @@
 {
   "segments": [
-    "virtual_env",
+    "set_term_title",
     "username",
     "hostname",
+    "aws_profile",
     "ssh",
     "cwd",
     "git",
-    "hg",
     "jobs",
     "root"
   ]
