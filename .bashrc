@@ -12,6 +12,9 @@ esac
 
 set -o noclobber
 
+export PATH=$PATH:~/bin
+export JAVA_HOME="$(/usr/libexec/java_home)"
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth

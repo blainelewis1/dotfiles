@@ -7,4 +7,4 @@ set page-completions off
 set visible-stats on
 set skip-completed-text on
 set colored-stats on
-set completion-ignore-case On
+set completion-ignore-case on

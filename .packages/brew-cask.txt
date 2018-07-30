@@ -1,13 +1,15 @@
+adobe-acrobat-reader
 android-platform-tools
 appcode
 docker
-evernote
 gimp
 google-chrome
+inkscape
+intellij-idea
 intellij-idea-ce
-java
 macpass
 mactex
+phpstorm
 rstudio
 skype
 slack
@@ -18,4 +20,7 @@ texstudio
 vagrant
 virtualbox
 visual-studio-code
+vlc
+webstorm
 xquartz
+zotero
