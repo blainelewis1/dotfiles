@@ -1,9 +1,0 @@
-Package    Version
----------- -------
-boto       2.49.0 
-boto3      1.7.65 
-pip        10.0.1 
-pylint     1.9.3  
-requests   2.19.1 
-setuptools 39.2.0 
-wheel      0.31.1 
